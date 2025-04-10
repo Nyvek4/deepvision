@@ -1,0 +1,2 @@
+notebooks/livrable1/models/5cv1/*.h5 filter=lfs diff=lfs merge=lfs -text
+notebooks/livrable1/models/5cv1/*.tflite filter=lfs diff=lfs merge=lfs -text
