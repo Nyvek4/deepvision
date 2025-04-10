@@ -1,0 +1,40 @@
+@keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
+  }
+  .pulse {
+    animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
+  .gradient-text {
+    background: linear-gradient(90deg, #f59e0b, #fbbf24);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  .dropzone {
+    border: 2px dashed rgba(245, 158, 11, 0.3);
+    transition: all 0.3s ease;
+  }
+  .dropzone.active {
+    border-color: #f59e0b;
+    background-color: rgba(245, 158, 11, 0.05);
+  }
+  .result-card {
+    transition: all 0.3s ease;
+    transform: scale(0.95);
+    opacity: 0;
+  }
+  .result-card.show {
+    transform: scale(1);
+    opacity: 1;
+  }
+  .model-loading {
+    background: linear-gradient(90deg, #1f2937, #374151, #1f2937);
+    background-size: 200% 100%;
+    animation: gradient 2s linear infinite;
+  }
+  @keyframes gradient {
+    0% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+  

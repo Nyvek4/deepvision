@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DeepVision - Classification d'images</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="../static/style.css">
+</head>
+<body class="bg-gray-900 text-gray-100 min-h-screen font-sans">
+    <!-- Navigation -->
+    <nav class="fixed w-full bg-gray-900 bg-opacity-90 backdrop-blur-sm z-50 border-b border-gray-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16 items-center">
+                <div class="flex items-center">
+                    <div class="flex-shrink-0 flex items-center">
+                        <i class="fas fa-brain text-yellow-500 text-2xl mr-2"></i>
+                        <span class="text-xl font-bold gradient-text">DeepVision</span>
+                    </div>
+                </div>
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-8">
+                        <a href="#demo" class="px-3 py-2 text-sm font-medium hover:text-yellow-400 transition">Démo</a>
+                        <a href="#how-it-works" class="px-3 py-2 text-sm font-medium hover:text-yellow-400 transition">Fonctionnement</a>
+                        <a href="#about" class="px-3 py-2 text-sm font-medium hover:text-yellow-400 transition">À propos</a>
+                    </div>
+                </div>
+                <div class="hidden md:block">
+                    <button class="px-4 py-2 border border-yellow-500 text-yellow-500 rounded-md hover:bg-yellow-500 hover:bg-opacity-10 transition">
+                        <i class="fas fa-code mr-2"></i>API
+                    </button>
+                </div>
+                <div class="md:hidden">
+                    <button id="mobile-menu-button" class="text-gray-400 hover:text-yellow-500 focus:outline-none">
+                        <i class="fas fa-bars text-xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Mobile menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-gray-800">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+                <a href="#demo" class="block px-3 py-2 text-base font-medium hover:text-yellow-400 transition">Démo</a>
+                <a href="#how-it-works" class="block px-3 py-2 text-base font-medium hover:text-yellow-400 transition">Fonctionnement</a>
+                <a href="#about" class="block px-3 py-2 text-base font-medium hover:text-yellow-400 transition">À propos</a>
+                <button class="block w-full text-left px-3 py-2 border border-yellow-500 text-yellow-500 rounded-md hover:bg-yellow-500 hover:bg-opacity-10 transition mt-2">
+                    <i class="fas fa-code mr-2"></i>API
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="pt-24 pb-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+        <!-- Hero Section -->
+        <section class="py-12 md:py-20">
+            <div class="flex flex-col md:flex-row items-center">
+                <div class="md:w-1/2 mb-10 md:mb-0">
+                    <h1 class="text-4xl md:text-6xl font-bold mb-6 leading-tight">
+                        Classification d'images <span class="gradient-text">par IA</span>
+                    </h1>
+                    <p class="text-gray-400 text-lg mb-8 max-w-lg">
+                        Notre modèle de deep learning analyse vos images et détermine si c'est une photo réelle ou non. 
+                        Essayez-le maintenant en uploadant une image.
+                    </p>
+                    <a href="#demo" class="px-8 py-3 bg-yellow-500 text-gray-900 font-semibold rounded-md hover:bg-yellow-600 transition inline-flex items-center">
+                        Essayer maintenant
+                        <i class="fas fa-arrow-down ml-2"></i>
+                    </a>
+                </div>
+                <div class="md:w-1/2 flex justify-center">
+                    <div class="relative w-full max-w-md">
+                        <div class="absolute -top-10 -left-10 w-32 h-32 bg-yellow-500 rounded-full opacity-20 blur-xl"></div>
+                        <div class="absolute -bottom-10 -right-10 w-32 h-32 bg-yellow-500 rounded-full opacity-20 blur-xl"></div>
+                        <div class="relative bg-gray-800 rounded-2xl p-1 shadow-2xl border border-gray-700 overflow-hidden">
+                            <div class="bg-gray-900 h-8 flex items-center px-3 space-x-2">
+                                <div class="w-3 h-3 rounded-full bg-red-500"></div>
+                                <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
+                                <div class="w-3 h-3 rounded-full bg-green-500"></div>
+                            </div>
+                            <div class="h-80 flex items-center justify-center p-4">
+                                <img src="https://www.opnminded.com/wp-content/uploads/2016/11/photo-historique-5-1-optimized.jpg" 
+                                     alt="Exemple d'image" 
+                                     class="w-full h-full object-cover rounded-lg">
+                            </div>
+                            <div class="absolute bottom-4 left-4 right-4 bg-gray-900 bg-opacity-80 rounded-lg p-3 backdrop-blur-sm">
+                                <div class="flex justify-between items-center">
+                                    <span class="font-medium">Résultat:</span>
+                                    <span class="bg-green-500 text-gray-900 px-2 py-1 rounded text-sm font-bold">PHOTO (99%)</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Demo Section -->
+        <section id="demo" class="py-16">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">Testez notre <span class="gradient-text">modèle IA</span></h2>
+                <p class="text-gray-400 max-w-2xl mx-auto">
+                    Uploader une image et notre modèle de deep learning déterminera s'il s'agit d'une photo réelle ou non.
+                </p>
+            </div>
+
+            <div class="bg-gray-800 rounded-2xl p-6 border border-gray-700">
+                <!-- Model Status -->
+                <div id="model-status" class="mb-6">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="font-medium">État du modèle:</span>
+                        <span id="status-text" class="text-yellow-500 font-medium">Chargement...</span>
+                    </div>
+                    <div class="w-full bg-gray-700 rounded-full h-2.5">
+                        <div id="model-progress" class="bg-yellow-500 h-2.5 rounded-full model-loading" style="width: 100%"></div>
+                    </div>
+                </div>
+
+                <!-- Dropzone -->
+                <div id="dropzone" class="dropzone rounded-xl p-8 md:p-12 text-center cursor-pointer mb-6">
+                    <input type="file" id="file-input" class="hidden" accept="image/*">
+                    <div class="mx-auto w-16 h-16 bg-yellow-500 bg-opacity-10 rounded-full flex items-center justify-center mb-4">
+                        <i class="fas fa-cloud-upload-alt text-yellow-500 text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2">Glissez-déposez votre image</h3>
+                    <p class="text-gray-400 mb-4">ou cliquez pour sélectionner un fichier</p>
+                    <p class="text-sm text-gray-500">Formats supportés: JPG, PNG, WEBP (Max 5MB)</p>
+                </div>
+
+                <!-- Preview -->
+                <div id="image-preview-container" class="hidden mb-6">
+                    <div class="flex justify-between items-center mb-4">
+                        <h3 class="font-medium">Aperçu de l'image</h3>
+                        <button id="clear-btn" class="text-gray-400 hover:text-yellow-500 text-sm">
+                            <i class="fas fa-times mr-1"></i>Effacer
+                        </button>
+                    </div>
+                    <div class="relative">
+                        <img id="image-preview" src="#" alt="Aperçu de l'image" class="w-full max-h-96 object-contain rounded-lg">
+                        <div id="processing-overlay" class="hidden absolute inset-0 bg-gray-900 bg-opacity-70 flex items-center justify-center rounded-lg">
+                            <div class="text-center">
+                                <div class="w-12 h-12 border-4 border-yellow-500 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+                                <p class="text-yellow-500 font-medium">Analyse en cours...</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Results -->
+                <div id="results" class="hidden">
+                    <h3 class="font-medium mb-4">Résultats de l'analyse</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="result-card bg-gray-700 rounded-lg p-4">
+                            <div class="flex items-center mb-2">
+                                <div class="w-8 h-8 bg-green-500 bg-opacity-20 rounded-full flex items-center justify-center mr-2">
+                                    <i class="fas fa-camera text-green-500 text-sm"></i>
+                                </div>
+                                <span class="font-medium">Photo</span>
+                            </div>
+                            <div class="w-full bg-gray-600 rounded-full h-2 mb-1">
+                                <div id="photo-progress" class="bg-green-500 h-2 rounded-full" style="width: 0%"></div>
+                            </div>
+                            <div class="flex justify-between text-sm">
+                                <span class="text-gray-400">Probabilité</span>
+                                <span id="photo-percent" class="font-medium">0%</span>
+                            </div>
+                        </div>
+                        <div class="result-card bg-gray-700 rounded-lg p-4">
+                            <div class="flex items-center mb-2">
+                                <div class="w-8 h-8 bg-red-500 bg-opacity-20 rounded-full flex items-center justify-center mr-2">
+                                    <i class="fas fa-paint-brush text-red-500 text-sm"></i>
+                                </div>
+                                <span class="font-medium">Non-photo</span>
+                            </div>
+                            <div class="w-full bg-gray-600 rounded-full h-2 mb-1">
+                                <div id="non-photo-progress" class="bg-red-500 h-2 rounded-full" style="width: 0%"></div>
+                            </div>
+                            <div class="flex justify-between text-sm">
+                                <span class="text-gray-400">Probabilité</span>
+                                <span id="non-photo-percent" class="font-medium">0%</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="final-result" class="mt-4 p-4 rounded-lg hidden">
+                        <div class="flex items-center">
+                            <div id="result-icon" class="w-10 h-10 rounded-full flex items-center justify-center mr-3">
+                                <i class="fas fa-check text-white"></i>
+                            </div>
+                            <div>
+                                <h4 id="result-title" class="font-bold"></h4>
+                                <p id="result-desc" class="text-sm text-gray-400"></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Analyze Button -->
+                <button id="analyze-btn" class="w-full py-3 bg-yellow-500 text-gray-900 font-semibold rounded-md hover:bg-yellow-600 transition mt-6 hidden">
+                    <i class="fas fa-brain mr-2"></i>Analyser l'image
+                </button>
+            </div>
+        </section>
+
+        <!-- How it works -->
+        <section id="how-it-works" class="py-16">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">Comment ça <span class="gradient-text">fonctionne</span></h2>
+                <p class="text-gray-400 max-w-2xl mx-auto">
+                    Notre modèle de deep learning analyse les caractéristiques de votre image pour déterminer son authenticité.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="bg-gray-800 rounded-xl p-8 border border-gray-700">
+                    <div class="w-14 h-14 bg-yellow-500 bg-opacity-10 rounded-lg flex items-center justify-center mb-6">
+                        <i class="fas fa-upload text-yellow-500 text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">1. Uploader une image</h3>
+                    <p class="text-gray-400">
+                        Sélectionnez ou glissez-déposez une image depuis votre appareil. Nous supportons les formats JPG, PNG et WEBP.
+                    </p>
+                </div>
+                <div class="bg-gray-800 rounded-xl p-8 border border-gray-700">
+                    <div class="w-14 h-14 bg-yellow-500 bg-opacity-10 rounded-lg flex items-center justify-center mb-6">
+                        <i class="fas fa-microchip text-yellow-500 text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">2. Analyse par IA</h3>
+                    <p class="text-gray-400">
+                        Notre modèle CNN analyse les caractéristiques de l'image pour détecter si c'est une photo réelle ou non.
+                    </p>
+                </div>
+                <div class="bg-gray-800 rounded-xl p-8 border border-gray-700">
+                    <div class="w-14 h-14 bg-yellow-500 bg-opacity-10 rounded-lg flex items-center justify-center mb-6">
+                        <i class="fas fa-chart-bar text-yellow-500 text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">3. Obtenez les résultats</h3>
+                    <p class="text-gray-400">
+                        Recevez une analyse détaillée avec les probabilités associées à chaque classe.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Model -->
+        <section id="about" class="py-16">
+            <div class="bg-gray-800 rounded-2xl p-8 md:p-12 border border-gray-700">
+                <div class="flex flex-col md:flex-row items-center">
+                    <div class="md:w-1/2 mb-8 md:mb-0 md:pr-8">
+                        <h2 class="text-3xl md:text-4xl font-bold mb-6">Notre <span class="gradient-text">modèle IA</span></h2>
+                        <p class="text-gray-400 mb-4">
+                            Nous utilisons une architecture ResNet50 pré-entraînée sur ImageNet, fine-tunée pour la classification photo/non-photo.
+                        </p>
+                        <p class="text-gray-400 mb-6">
+                            Le modèle a été entraîné sur un dataset de +40,000 images avec une précision de validation de 98,66% sur plus de 6000 images de tests (15%).
+                        </p>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="bg-gray-700 text-yellow-500 px-3 py-1 rounded-full text-sm">TensorFlow</span>
+                            <span class="bg-gray-700 text-yellow-500 px-3 py-1 rounded-full text-sm">Keras</span>
+                            <span class="bg-gray-700 text-yellow-500 px-3 py-1 rounded-full text-sm">ResNet50</span>
+                            <span class="bg-gray-700 text-yellow-500 px-3 py-1 rounded-full text-sm">Transfer Learning</span>
+                        </div>
+                    </div>
+                    <div class="md:w-1/2">
+                        <div class="bg-gray-900 rounded-xl p-6 border border-gray-700">
+                            <h3 class="font-bold mb-4 text-yellow-500">Performances du modèle</h3>
+                            <div class="space-y-4">
+                                <div>
+                                    <div class="flex justify-between mb-1">
+                                        <span class="text-sm font-medium">Précision</span>
+                                        <span class="text-sm font-medium">98.66%</span>
+                                    </div>
+                                    <div class="w-full bg-gray-700 rounded-full h-2">
+                                        <div class="bg-green-500 h-2 rounded-full" style="width: 94.2%"></div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="flex justify-between mb-1">
+                                        <span class="text-sm font-medium">Rappel</span>
+                                        <span class="text-sm font-medium">98.27%</span>
+                                    </div>
+                                    <div class="w-full bg-gray-700 rounded-full h-2">
+                                        <div class="bg-yellow-500 h-2 rounded-full" style="width: 92.8%"></div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="flex justify-between mb-1">
+                                        <span class="text-sm font-medium">F1-score</span>
+                                        <span class="text-sm font-medium">99.13%</span>
+                                    </div>
+                                    <div class="w-full bg-gray-700 rounded-full h-2">
+                                        <div class="bg-blue-500 h-2 rounded-full" style="width: 93.5%"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mt-6 pt-6 border-t border-gray-700">
+                                <h4 class="font-medium mb-2">Matrice de confusion</h4>
+                                <div class="flex justify-center">
+                                    <div class="grid grid-cols-3 gap-1 text-xs text-center">
+                                        <div class="p-2"></div>
+                                        <div class="p-2 font-bold">Prédit Photo</div>
+                                        <div class="p-2 font-bold">Prédit Non-photo</div>
+                                        <div class="p-2 font-bold">Réel Photo</div>
+                                        <div class="p-2 bg-green-500 bg-opacity-20 text-green-500">1470</div>
+                                        <div class="p-2 bg-red-500 bg-opacity-20 text-red-500">55</div>
+                                        <div class="p-2 font-bold">Réel Non-photo</div>
+                                        <div class="p-2 bg-red-500 bg-opacity-20 text-red-500">20</div>
+                                        <div class="p-2 bg-green-500 bg-opacity-20 text-green-500">4655</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 border-t border-gray-800 pt-12 pb-8 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-7xl mx-auto">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+                <div>
+                    <div class="flex items-center mb-4">
+                        <i class="fas fa-brain text-yellow-500 text-2xl mr-2"></i>
+                        <span class="text-xl font-bold gradient-text">DeepVision</span>
+                    </div>
+                    <p class="text-gray-400 mb-4">
+                        Classification d'images par intelligence artificielle.
+                    </p>
+                    <div class="flex space-x-4">
+                        <a href="https://github.com/Nyvek4" class="text-gray-400 hover:text-yellow-500 transition">
+                            <i class="fab fa-github text-xl"></i>
+                        </a>
+                        <a href="https://x.com/k_nyve" class="text-gray-400 hover:text-yellow-500 transition">
+                            <i class="fab fa-twitter text-xl"></i>
+                        </a>
+                        <a href="https://www.linkedin.com/in/kevin-faramia/" class="text-gray-400 hover:text-yellow-500 transition">
+                            <i class="fab fa-linkedin text-xl"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Application</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#demo" class="text-gray-400 hover:text-yellow-500 transition">Démo</a></li>
+                        <li><a href="#how-it-works" class="text-gray-400 hover:text-yellow-500 transition">Fonctionnement</a></li>
+                        <li><a href="#about" class="text-gray-400 hover:text-yellow-500 transition">Modèle IA</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-yellow-500 transition">API</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Ressources</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-yellow-500 transition">Documentation</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-yellow-500 transition">GitHub</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-yellow-500 transition">Dataset</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-yellow-500 transition">Blog</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Contact</h3>
+                    <ul class="space-y-2">
+                        <li class="text-gray-400"><i class="fas fa-envelope text-yellow-500 mr-2"></i> contact@deepvision.com</li>
+                        <li class="text-gray-400"><i class="fas fa-map-marker-alt text-yellow-500 mr-2"></i> Aix-en-provence, France</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="pt-8 border-t border-gray-800 flex flex-col md:flex-row justify-between items-center">
+                <p class="text-gray-500 text-sm mb-4 md:mb-0">
+                    © 2025 DeepVision. Tous droits réservés.
+                </p>
+                <div class="flex space-x-6">
+                    <a href="#" class="text-gray-500 hover:text-yellow-500 text-sm transition">Confidentialité</a>
+                    <a href="#" class="text-gray-500 hover:text-yellow-500 text-sm transition">Conditions</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+  <script src="../static/script.js"></script>
+</body>
+</html>

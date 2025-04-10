@@ -1,0 +1,13 @@
+# Pour un projet Python
+__pycache__/
+*.py[cod]
+*.swp
+
+# Environnement virtuel
+env/
+venv/
+
+#models/
+
+# Fichiers d'environnement
+*.env
