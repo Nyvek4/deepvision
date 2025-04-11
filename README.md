@@ -18,7 +18,6 @@ This repository contains a complete deep learning pipeline for image classificat
 This project implements a deep learning-based image classification system that can distinguish between different types of visual content. The model was trained on a dataset of various images and uses the EfficientNetB0 architecture for classification.
 
 ## Repository Structure
-
 deep learning/
 ├── notebooks/
 │   └── livrable1/
