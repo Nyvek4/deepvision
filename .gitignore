@@ -8,6 +8,8 @@ env/
 venv/
 
 #models/
+notebooks/livrable1/models/
+
 
 # Fichiers d'environnement
 *.env
