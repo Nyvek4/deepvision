@@ -9,6 +9,7 @@ venv/
 
 #models/
 notebooks/livrable1/models/
+notebooks/livrable2/models/
 
 
 # Fichiers d'environnement
