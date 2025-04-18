@@ -109,6 +109,6 @@ def process_images(input_dir, output_dir):
 # Exemple d'utilisation
 if __name__ == "__main__":
     process_images(
-        input_dir="/mnt/c/Users/NyveK/Downloads/Datasets/Datasets/livrable2/Dataset",
+        input_dir="/mnt/c/Users/NyveK/Downloads/Dataset Livrable 2/Dataset",
         output_dir="/home/kevin/datasets/livrable2/processed_dataaug"
     )
