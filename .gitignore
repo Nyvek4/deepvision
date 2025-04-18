@@ -13,3 +13,7 @@ notebooks/livrable1/models/
 
 # Fichiers d'environnement
 *.env
+*.jpg
+*.png
+*.jpeg
+*.pdf
